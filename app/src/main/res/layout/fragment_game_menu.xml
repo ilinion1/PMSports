@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/logo_menu"
+    tools:context=".presentation.fragment.GameMenuFragment">
+
+    <ImageView
+        android:id="@+id/imLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/bax"
+        app:layout_constraintBottom_toTopOf="@+id/btStartGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btStartGame"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#ff7543"
+        android:drawableBottom="@drawable/botton"
+        android:text="Start Game"
+        android:textAllCaps="false"
+        android:textColor="#5d4037"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btResult"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#ff7543"
+        android:drawableEnd="@drawable/result"
+        android:text="Result"
+        android:textAllCaps="false"
+        android:textColor="#5d4037"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btSettings"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="#ff7543"
+        android:drawableEnd="@drawable/settings"
+        android:text="Settings"
+        android:textAllCaps="false"
+        android:textColor="#5d4037"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btDescription"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="116dp"
+        android:backgroundTint="#ff7543"
+        android:drawableEnd="@drawable/info"
+        android:text="Info"
+        android:textAllCaps="false"
+        android:textColor="#5d4037"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
