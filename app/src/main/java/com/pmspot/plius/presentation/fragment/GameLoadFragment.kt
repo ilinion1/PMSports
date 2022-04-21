@@ -220,14 +220,27 @@ class GameLoadFragment : Fragment() {
      */
     private fun nextScreen() {
         collectingLink() //формирую ссылку
-        if (afStatus == null || !isDef && afStatus == "Organic" && subAll[1] == null )  {
-            findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
-        }
-        if (isDef && afStatus == "Organic" || subAll[1] != null) {
-            Intent(requireActivity(), WebViewActivity::class.java).apply {
-                link.edit().putString("link", "$mainLink").apply()
-                putExtra("link", mainLink)
-                startActivity(this)
+        if (subAll[1] == "test2"){
+            if (afStatus == null || !isDef && afStatus == "Organic" && subAll[1] == null )  {
+                findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
+            }
+            if (isDef && afStatus == "Organic" || subAll[1] != null) {
+                Intent(requireActivity(), WebViewActivity::class.java).apply {
+                    link.edit().putString("link", "$mainLink").apply()
+                    putExtra("link", mainLink)
+                    startActivity(this)
+                }
+            }
+        } else{
+            if (afStatus == null || !isDef && afStatus == "Organic")  {
+                findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
+            }
+            if (isDef && afStatus == "Organic" || subAll[1] != null) {
+                Intent(requireActivity(), WebViewActivity::class.java).apply {
+                    link.edit().putString("link", "$mainLink").apply()
+                    putExtra("link", mainLink)
+                    startActivity(this)
+                }
             }
         }
     }
