@@ -45,7 +45,8 @@ class GameLoadFragment : Fragment() {
     private val facebookToken = "eb_fAN0QcmqNO5Dly_fdw2QHRnY"
     private val appsDevKey = "NHiG2w9MT2Y45KZuPnSHcD"
     private val facebookAppId by lazy { resources.getString(R.string.facebook_app_id) }
-    private var subAll = listOf<String?>(null, null, null, null) //данные с deeplink и appsFlyer разпарсенные
+    private var subAll =
+        listOf<String?>(null, null, null, null) //данные с deeplink и appsFlyer разпарсенные
 
     private var campaign: String? = null
     private var deepLink: String? = null
@@ -57,11 +58,21 @@ class GameLoadFragment : Fragment() {
     private var isFirstLaunch: String? = null
 
     //проверка первый ли вход
-    private val user by lazy { requireActivity().getSharedPreferences("hasVisited", Context.MODE_PRIVATE) }
+    private val user by lazy {
+        requireActivity().getSharedPreferences(
+            "hasVisited",
+            Context.MODE_PRIVATE
+        )
+    }
     private val visited by lazy { user.getBoolean("hasVisited", true) }
 
     //сохраняю ссылку для вебВью
-    private val link by lazy { requireActivity().getSharedPreferences("link", Context.MODE_PRIVATE) }
+    private val link by lazy {
+        requireActivity().getSharedPreferences(
+            "link",
+            Context.MODE_PRIVATE
+        )
+    }
     private val haveLink by lazy { link.getString("link", "") }
 
     override fun onCreateView(
@@ -75,40 +86,17 @@ class GameLoadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Glide.with(this).load(R.drawable.bask).into(binding.imBask)
+        startWork()
 
-            //проверяю, если включен интернет, запускаю всю логику, если нет, сообщаю что нужно включить
-            if (checkForInternet(requireActivity())){
-                startWork()
-            } else {
-                Toast.makeText(requireActivity(),"Need to turn on internet", Toast.LENGTH_LONG).show()
-            }
-    }
-
-
-    /**
-     * Проверяю включен ли интернет
-     */
-    private fun checkForInternet(context: Context): Boolean {
-
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val network = connectivityManager.activeNetwork ?: return false
-        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-        return when {
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            else -> false
-        }
     }
 
     /**
      * Запускаю инициализацию и открываю новое окно
      */
-    private fun startWork(){
+    private fun startWork() {
         //проверка, если первый раз установил приложение, собирает данные и определяет что открыть
         //если второй, открывает что было прежде открыто
-        if (visited){
+        if (visited) {
             lifecycleScope.launch(Dispatchers.IO) {
                 getDataServer() //получаю даннные с сервера(клоаку)
                 getGoogleID() // получаю googleId
@@ -118,10 +106,10 @@ class GameLoadFragment : Fragment() {
                 }
             }
             user.edit().putBoolean("hasVisited", false).apply()
-        }else {
-            if(haveLink.isNullOrEmpty()){
+        } else {
+            if (haveLink.isNullOrEmpty()) {
                 findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
-            }else {
+            } else {
                 Intent(requireActivity(), WebViewActivity::class.java).apply {
                     putExtra("link", haveLink)
                     startActivity(this)
@@ -196,6 +184,7 @@ class GameLoadFragment : Fragment() {
                 "&af_status=$afStatus" + "&af_channel=$afChannel" + "&campaign=$campaign" +
                 "&is_first_launch=$isFirstLaunch" + "&sub1=${subAll[0]}" + "&sub2=${subAll[1]}" +
                 "&sub3=${subAll[2]}" + "&sub4=${subAll[3]}"
+        Log.d("test2", "$mainLink")
     }
 
     /**
@@ -205,11 +194,10 @@ class GameLoadFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 ApiFactory.create().getDataServer().users.forEach {
-                    Log.d("test1", "$it")
                     isDef = it.isdef.toBoolean()
                     cloacaLink = it.linka.toString()
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("errorGetData", "$e")
             }
         }
@@ -220,8 +208,8 @@ class GameLoadFragment : Fragment() {
      */
     private fun nextScreen() {
         collectingLink() //формирую ссылку
-        if (subAll[1] == "test2"){
-            if (afStatus == null || !isDef && afStatus == "Organic" && subAll[1] == null )  {
+        if (subAll[1] == "test2") {
+            if (afStatus == null || !isDef && afStatus == "Organic" && subAll[1] == null) {
                 findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
             }
             if (isDef && afStatus == "Organic" || subAll[1] != null) {
@@ -231,8 +219,8 @@ class GameLoadFragment : Fragment() {
                     startActivity(this)
                 }
             }
-        } else{
-            if (afStatus == null || !isDef && afStatus == "Organic")  {
+        } else {
+            if (afStatus == null || !isDef && afStatus == "Organic") {
                 findNavController().navigate(R.id.action_gameLoadFragment_to_gameMenuFragment)
             }
             if (isDef && afStatus == "Organic" || subAll[1] != null) {
